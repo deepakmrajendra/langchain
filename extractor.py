@@ -29,33 +29,21 @@ def evaluate_clinical_criteria(state: State) -> dict:
 
 Current date: 26 April 2026
 
-Your task is to evaluate patient data against the Leqembi policy criteria and determine if the patient meets all requirements for initial approval.
+Your task is to evaluate patient data strictly against the provided Policy Text and determine if the patient meets the requirements for initial approval.
 
-Carefully review each criterion:
-- Diagnosis code must match G30.x (Alzheimer's disease)
-- Dementia severity must be mild
-- Amyloid plaque must be confirmed
-- MRI must be within the past year (relative to current date: 26 April 2026)
-- Other forms of dementia must be ruled out
-- Prescriber must agree to ARIA monitoring
-
-CRITICAL: You MUST return a complete evaluation containing exactly these boolean keys:
-1. matches_diagnosis
-2. dementia_is_mild
-3. amyloid_confirmed
-4. has_recent_mri
-5. other_dementia_ruled_out
-6. agrees_to_aria_monitoring
-7. meets_all_criteria (True ONLY if all the above are True)
-
-Do not omit any fields."""),
+CRITICAL INSTRUCTIONS:
+1. Do NOT use prior knowledge.
+2. You must read the provided Policy Text to identify the specific clinical criteria required for approval.
+3. Evaluate the provided Patient Data against those extracted criteria.
+4. You MUST map your findings exactly to the provided JSON schema boolean fields (e.g., matches_diagnosis, dementia_is_mild).
+5. Output ONLY valid JSON. Do not include markdown formatting or conversational text."""),
         ("human", """Policy Text:
 {policy_text}
 
 Patient Data:
 {patient_data}
 
-Please evaluate this patient against the policy criteria and return your assessment.""")
+Please evaluate this patient against the policy criteria and return your structured assessment.""")
     ])
     
     # Create the chain
