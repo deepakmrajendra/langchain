@@ -1,0 +1,29 @@
+[
+  {
+    "patient_id": "Patient_001_Golden_Path",
+    "primary_diagnosis_code": "G30.1",
+    "dementia_severity": "mild",
+    "amyloid_plaque_confirmed": true,
+    "most_recent_mri_date": "2026-02-18",
+    "other_dementia_ruled_out": true,
+    "prescriber_agrees_to_aria_monitoring": true
+  },
+  {
+    "patient_id": "Patient_002_RFI_Missing_MRI",
+    "primary_diagnosis_code": "G30.0",
+    "dementia_severity": "mild",
+    "amyloid_plaque_confirmed": true,
+    "most_recent_mri_date": null,
+    "other_dementia_ruled_out": true,
+    "prescriber_agrees_to_aria_monitoring": true
+  },
+  {
+    "patient_id": "Patient_003_Denial_Mismatch",
+    "primary_diagnosis_code": "F01.50",
+    "dementia_severity": "severe",
+    "amyloid_plaque_confirmed": true,
+    "most_recent_mri_date": "2026-01-05",
+    "other_dementia_ruled_out": true,
+    "prescriber_agrees_to_aria_monitoring": true
+  }
+]
