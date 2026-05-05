@@ -1,4 +1,5 @@
 from langgraph.graph import StateGraph, START, END
+from langgraph.checkpoint.memory import MemorySaver
 from state import State
 from extractor import evaluate_clinical_criteria
 
@@ -19,24 +20,22 @@ def generate_rfi(state: State) -> dict:
 
 
 def route_review(state: State) -> str:
-    """
-    Conditional routing function based on evaluation results.
-    
-    Args:
-        state: LangGraph State containing evaluation_results
-        
-    Returns:
-        String indicating which node to route to: "approve", "deny", or "rfi"
-    """
     evaluation = state["evaluation_results"]
-    
+
     if evaluation.meets_all_criteria:
         return "approve"
-    elif not evaluation.matches_diagnosis or not evaluation.dementia_is_mild:
+
+    # Check if any criterion has missing data (RFI) vs explicitly unmet (Denial)
+    has_missing_data = any(criterion.missing_data for criterion in evaluation.criteria_evaluations)
+    has_explicitly_unmet = any(not criterion.met and not criterion.missing_data for criterion in evaluation.criteria_evaluations)
+
+    if has_missing_data:
+        return "rfi"
+    elif has_explicitly_unmet:
         return "deny"
     else:
+        # Fallback - if it doesn't meet all but no explicit flags, request more info
         return "rfi"
-
 
 # Build the LangGraph
 workflow = StateGraph(State)
@@ -66,5 +65,11 @@ workflow.add_edge("draft_approval", END)
 workflow.add_edge("draft_denial", END)
 workflow.add_edge("generate_rfi", END)
 
-# Compile the graph
-app = workflow.compile()
+# Add the Checkpointer
+memory = MemorySaver()
+
+# Compile the graph with the checkpointer and interrupt rule
+app = workflow.compile(
+    checkpointer=memory,
+    interrupt_before=["evaluate_clinical_criteria"]
+)

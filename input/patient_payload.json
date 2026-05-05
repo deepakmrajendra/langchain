@@ -1,6 +1,6 @@
 [
   {
-    "patient_id": "Patient_001_Golden_Path",
+    "patient_id": "Patient_001_Golden_Path_I",
     "primary_diagnosis_code": "G30.1",
     "dementia_severity": "mild",
     "amyloid_plaque_confirmed": true,
@@ -9,7 +9,7 @@
     "prescriber_agrees_to_aria_monitoring": true
   },
   {
-    "patient_id": "Patient_002_RFI_Missing_MRI",
+    "patient_id": "Patient_002_RFI_Missing_MRI_I",
     "primary_diagnosis_code": "G30.0",
     "dementia_severity": "mild",
     "amyloid_plaque_confirmed": true,
@@ -18,12 +18,51 @@
     "prescriber_agrees_to_aria_monitoring": true
   },
   {
-    "patient_id": "Patient_003_Denial_Mismatch",
+    "patient_id": "Patient_003_Denial_Mismatch_I",
     "primary_diagnosis_code": "F01.50",
     "dementia_severity": "severe",
     "amyloid_plaque_confirmed": true,
     "most_recent_mri_date": "2026-01-05",
     "other_dementia_ruled_out": true,
     "prescriber_agrees_to_aria_monitoring": true
+  },
+  {
+    "patient_id": "Patient_004_Golden_Path_C",
+    "primary_diagnosis_code": "G30.1",
+    "dementia_severity": "mild",
+    "amyloid_plaque_confirmed": true,
+    "most_recent_mri_date": "2026-04-15",
+    "other_dementia_ruled_out": true,
+    "prescriber_agrees_to_aria_monitoring": true,
+    "progressed_to_moderate_severe_dementia": false,
+    "positive_clinical_response_radiographic_stabilization": true,
+    "mri_completed_prior_to_5th_7th_14th_infusions": true,
+    "unacceptable_toxicities_or_complications": false
+  },
+  {
+    "patient_id": "Patient_005_RFI_Missing_Scans_C",
+    "primary_diagnosis_code": "G30.1",
+    "dementia_severity": "mild",
+    "amyloid_plaque_confirmed": true,
+    "most_recent_mri_date": "2026-04-10",
+    "other_dementia_ruled_out": true,
+    "prescriber_agrees_to_aria_monitoring": true,
+    "progressed_to_moderate_severe_dementia": false,
+    "positive_clinical_response_radiographic_stabilization": true,
+    "mri_completed_prior_to_5th_7th_14th_infusions": null,
+    "unacceptable_toxicities_or_complications": false
+  },
+  {
+    "patient_id": "Patient_006_Denial_Disease_Progression_C",
+    "primary_diagnosis_code": "G30.1",
+    "dementia_severity": "severe",
+    "amyloid_plaque_confirmed": true,
+    "most_recent_mri_date": "2026-04-01",
+    "other_dementia_ruled_out": true,
+    "prescriber_agrees_to_aria_monitoring": true,
+    "progressed_to_moderate_severe_dementia": true,
+    "positive_clinical_response_radiographic_stabilization": false,
+    "mri_completed_prior_to_5th_7th_14th_infusions": true,
+    "unacceptable_toxicities_or_complications": false
   }
 ]

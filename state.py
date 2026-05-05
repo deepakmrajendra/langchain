@@ -1,37 +1,24 @@
-from typing import TypedDict, Optional
-from pydantic import BaseModel, Field, StrictBool, StrictStr
+from typing import TypedDict, Optional, List
+from pydantic import BaseModel, Field, StrictBool
+
+
+class CriterionEvaluation(BaseModel):
+    """Evaluation of a single extracted clinical criterion."""
+    criterion_name: str = Field(..., description="The specific rule extracted from the policy")
+    met: StrictBool = Field(..., description="True if the patient explicitly meets this specific criterion. False otherwise.")
+    missing_data: StrictBool = Field(..., description="True if there is not enough information in the patient data to determine if this criterion is met (e.g., null values).")
+    reasoning: str = Field(..., description="Brief explanation based on patient data")
 
 
 class ClinicalEvaluation(BaseModel):
-    """Pydantic model representing Leqembi initial approval criteria evaluation."""
-    
-    matches_diagnosis: StrictBool = Field(
-        ...,
-        description="Whether the primary diagnosis code matches Leqembi criteria (G30.x for Alzheimer's)"
-    )
-    dementia_is_mild: StrictBool = Field(
-        ...,
-        description="Whether the dementia severity is mild"
-    )
-    amyloid_confirmed: StrictBool = Field(
-        ...,
-        description="Whether amyloid plaque has been confirmed"
-    )
-    has_recent_mri: StrictBool = Field(
-        ...,
-        description="Whether the patient has a recent MRI within the past year"
-    )
-    other_dementia_ruled_out: StrictBool = Field(
-        ...,
-        description="Whether other forms of dementia have been ruled out"
-    )
-    agrees_to_aria_monitoring: StrictBool = Field(
-        ...,
-        description="Whether the prescriber agrees to ARIA monitoring"
+    """Complete evaluation of all required criteria."""
+    criteria_evaluations: List[CriterionEvaluation] = Field(
+        ..., 
+        description="List of all individual criteria evaluated"
     )
     meets_all_criteria: StrictBool = Field(
         ...,
-        description="Overall determination if all Leqembi approval criteria are met (True only if all above are true)"
+        description="True ONLY if every single criterion in the criteria_evaluations list is met"
     )
 
 
@@ -40,5 +27,6 @@ class State(TypedDict):
     
     patient_data: dict
     policy_text: str
+    request_type: Optional[str]  # e.g., "Initial Approval" or "Continued Therapy"
     evaluation_results: Optional[ClinicalEvaluation]
     next_step: Optional[str]
